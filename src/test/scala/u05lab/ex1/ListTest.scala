@@ -29,6 +29,14 @@ class ListTest {
     assertEquals((List.Nil(), List(1, 2, 3, 4, 5)), l.span(_ < 0))
     assertEquals((List.Nil(), List.Nil()), List.Nil[Int]().span(_ < 0))
 
+  @Test
+  def testReduce(): Unit =
+    assertEquals(15, List(1, 2, 3, 4, 5).reduce(_ + _))
+    assertEquals(120, List(1, 2, 3, 4, 5).reduce(_ * _))
+    assertEquals(1, List(1).reduce(_ * _))
+    Assert.assertThrows(classOf[UnsupportedOperationException], () => List.Nil[Int]().reduce(_ + _))
+
+
 
 
 }

@@ -61,14 +61,13 @@ enum List[A]:
 
   /** EXERCISES */
   def zipRight: List[(A, Int)] =
-    foldRight(Nil())((e, b) => (e, b.head.map(_._2).getOrElse(this.length) - 1) :: b)
+    foldRight(List.Nil())((e, b) => (e, b.head.map(_._2).getOrElse(this.length) - 1) :: b)
 
   def partition(pred: A => Boolean): (List[A], List[A]) =
     foldRight((List.Nil(), List.Nil()))({
       case (e, (p1, p2)) if pred(e) => (e :: p1, p2)
       case (e, (p1, p2)) => (p1, e :: p2)
     })
-    // foldRight((Nil(), Nil()))((e, ls) => if pred(e) then ls.copy(_1 = e :: ls._1) else ls.copy(_2 = e :: ls._2))
 
   def span(pred: A => Boolean): (List[A], List[A]) =
     foldLeft((List.Nil(), List.Nil()))((a, e) => (e, a) match
@@ -77,7 +76,9 @@ enum List[A]:
     )
 
   /** @throws UnsupportedOperationException if the list is empty */
-  def reduce(op: (A, A) => A): A = ???
+  def reduce(op: (A, A) => A): A = this match
+    case Nil() => throw UnsupportedOperationException("reduce of empty list")
+    case h :: t => t.foldRight(h)(op)
 
   def takeRight(n: Int): List[A] = ???
 
