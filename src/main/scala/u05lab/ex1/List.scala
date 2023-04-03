@@ -63,9 +63,9 @@ enum List[A]:
   def zipRight: List[(A, Int)] =
     foldRight(Nil())((a, b) => (a, this.length - b.length - 1) :: b)
 
-  def partition(pred: A => Boolean): (List[A], List[A]) = ???
-)
-    assertEquals(List((1, 0)), List(1, 2).zipRight)
+  def partition(pred: A => Boolean): (List[A], List[A]) =
+    foldRight((List.Nil(), List.Nil()))((a, b) => if pred(a) then (a :: b._1, b._2) else (b._1, a :: b._2))
+
   def span(pred: A => Boolean): (List[A], List[A]) = ???
 
   /** @throws UnsupportedOperationException if the list is empty */

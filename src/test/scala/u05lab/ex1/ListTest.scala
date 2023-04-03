@@ -13,6 +13,12 @@ class ListTest {
     assertEquals(List.Nil(), List.Nil().zipRight)
     assertEquals(List((1, 0)), List(1).zipRight)
 
+  @Test
+  def testPartition(): Unit =
+    val l = List(1, 2, 3, 4, 5)
+    assertEquals((List(1, 3, 5), List(2, 4)), l.partition(_ % 2 == 1))
+    assertEquals((List(1), List.Nil()), List(1).partition(_ % 2 == 1))
+
 
 
 }
