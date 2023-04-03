@@ -7,6 +7,7 @@ import u05lab.ex1.List
 enum List[A]:
   case ::(h: A, t: List[A])
   case Nil()
+
   def ::(h: A): List[A] = List.::(h, this)
 
   def head: Option[A] = this match
@@ -59,10 +60,12 @@ enum List[A]:
   def reverse(): List[A] = foldLeft[List[A]](Nil())((l, e) => e :: l)
 
   /** EXERCISES */
-  def zipRight: List[(A, Int)] = ???
+  def zipRight: List[(A, Int)] =
+    foldRight(Nil())((a, b) => (a, this.length - b.length - 1) :: b)
 
   def partition(pred: A => Boolean): (List[A], List[A]) = ???
-
+)
+    assertEquals(List((1, 0)), List(1, 2).zipRight)
   def span(pred: A => Boolean): (List[A], List[A]) = ???
 
   /** @throws UnsupportedOperationException if the list is empty */
@@ -80,6 +83,7 @@ object List:
 
   def of[A](elem: A, n: Int): List[A] =
     if n == 0 then Nil() else elem :: of(elem, n - 1)
+
 
 @main def checkBehaviour(): Unit =
   val reference = List(1, 2, 3, 4)
