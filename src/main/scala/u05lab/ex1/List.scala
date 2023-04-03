@@ -80,7 +80,8 @@ enum List[A]:
     case Nil() => throw UnsupportedOperationException("reduce of empty list")
     case h :: t => t.foldRight(h)(op)
 
-  def takeRight(n: Int): List[A] = ???
+  def takeRight(n: Int): List[A] =
+    this.zipRight.filter(_._2 >= length - n).map(_._1)
 
 // Factories
 object List:

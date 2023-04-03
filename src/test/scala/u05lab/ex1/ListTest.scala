@@ -36,6 +36,13 @@ class ListTest {
     assertEquals(1, List(1).reduce(_ * _))
     Assert.assertThrows(classOf[UnsupportedOperationException], () => List.Nil[Int]().reduce(_ + _))
 
+  @Test
+  def testTakeRight(): Unit =
+    val l = List(1, 2, 3, 4, 5)
+    assertEquals(List(3, 4, 5), l.takeRight(3))
+    assertEquals(List(1, 2, 3, 4, 5), l.takeRight(10))
+    assertEquals(List.Nil(), l.takeRight(0))
+    assertEquals(List.Nil(), List.Nil().takeRight(10))
 
 
 
